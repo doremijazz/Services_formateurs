@@ -29,3 +29,10 @@ personne
 - 2 services par personnes par semaines max : 1 midi, 1 veillée
 - Impossible de faire 2 services la même journée
 - Equilibrer le nombre de service par période (vacances à vacances)
+
+## Technologies utilisées
+
+Python 3.14
+CSV
+Tkinter
+etc au besoin
