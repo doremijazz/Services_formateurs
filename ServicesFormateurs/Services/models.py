@@ -29,5 +29,23 @@ class Service(models.Model):
     def delete_affectation(self):
         pass
 
+class ClasseShedule(models.Model):
+    weekday = models.IntegerField()
+    period = models.IntegerField()
+
+class Direction(models.Model):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+
+    def generate_planning(self):
+        pass
+
+class Resquest(models.Model):
+    type = models.IntegerField()
+    days = models.IntegerField()
+    date = models.DateTimeField()
+    type_service = models.IntegerField()
+
+
 
 
