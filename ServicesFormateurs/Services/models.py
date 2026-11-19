@@ -8,6 +8,14 @@ class ServiceType(models.IntegerChoices):
     EVENING = 3, "Veillée"
 
 
+class RequestDays(models.IntegerChoices):
+    Monday = 1, "Lundi"
+    Tuesday = 2, "Mardi"
+    Wednesday = 3, "Mercredi"
+    Thursday = 4, "Jeudi"
+    Friday = 5, "Vendredi"
+
+
 class PlanningStatus(models.IntegerChoices):
     En_cours = 1, "En cours"
     Finished = 2, "Finalisé"
@@ -126,8 +134,7 @@ class Direction(models.Model):
 
 class Request(models.Model):
     type = models.IntegerField(choices=RequestType.choices)
-    days = models.IntegerField()
-    date = models.DateTimeField()
+    days = models.IntegerField(null=True, blank=True, choices=RequestDays.choices)
     type_service = models.IntegerField(choices=ServiceType.choices)
     trainer = models.ForeignKey(
         Trainer,
@@ -135,6 +142,14 @@ class Request(models.Model):
         related_name="requests"
     )
 
+class RequestDate(models.Model):
+    request = models.ForeignKey(
+        Request,
+        on_delete=models.CASCADE,
+        related_name="dates"
+    )
+
+    date = models.DateField()
 
 class HolidayPeriod(models.Model):
     name = models.CharField(max_length=50)
