@@ -72,9 +72,6 @@ class Planning(models.Model):
 
 class Service(models.Model):
     date = models.DateField()
-
-
-
     type = models.IntegerField(choices=ServiceType.choices)
     status = models.IntegerField(choices=ServiceStatus.choices)
 
