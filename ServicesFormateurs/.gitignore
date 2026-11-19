@@ -1,0 +1,103 @@
+
+# ==========================================
+# PYTHON
+# ==========================================
+
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environnements virtuels
+venv/
+.venv/
+env/
+ENV/
+
+# ==========================================
+# DJANGO
+# ==========================================
+
+# Base de données locale
+db.sqlite3
+db.sqlite3-journal
+
+# Fichiers générés
+*.log
+local_settings.py
+staticfiles/
+media/
+
+# Fichiers sensibles
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ==========================================
+# PYCHARM
+# ==========================================
+
+.idea/
+*.iml
+
+# ==========================================
+# VISUAL STUDIO CODE
+# ==========================================
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+
+# ==========================================
+# DRAW.IO / DIAGRAMS.NET
+# ==========================================
+
+# Sauvegardes temporaires
+*.drawio.bkp
+*.drawio.tmp
+*.drawio.autosave
+
+# ==========================================
+# LOOPING (MERISE)
+# ==========================================
+
+# Sauvegardes temporaires
+*.bak
+*.tmp
+
+# ==========================================
+# HTML / CSS / JAVASCRIPT
+# ==========================================
+
+# Dépendances JavaScript
+node_modules/
+
+# Fichiers de compilation
+dist/
+build/
+coverage/
+
+# ==========================================
+# SYSTÈME WINDOWS
+# ==========================================
+
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ==========================================
+# FICHIERS TEMPORAIRES
+# ==========================================
+
+*.swp
+*.swo
+*~
+*.temp
