@@ -1,6 +1,14 @@
 from django.shortcuts import render, redirect
+from django.views import View
 
 from Services.forms import RequestForm, RequestDateForm
+from Services.models import Request
+
+
+class IndexView(View):
+    model = Request
+    template_name = "services/index.html"
+    context_object_name = "demandes"
 
 def do_request(request):
     if request.method == 'POST':
