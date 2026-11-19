@@ -1,0 +1,21 @@
+{% extends "Services/base.html" %}
+<body>
+{% block main %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+        {{ date_form.management_form }}
+        {% for slot in date_form %}
+        <fieldset>
+            <legend>Créneau {{ forloop.counter }}</legend>
+
+            {{ slot.as_p }}
+        </fieldset>
+        </p>
+        {% endfor %}
+         <button type="submit" class="enregistrer">Enregistrer</button>
+    </form>
+{% endblock %}
+</body>

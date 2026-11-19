@@ -1,0 +1,19 @@
+{% load static %}
+
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'Services/style.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    <header>
+        {% block header %}
+        {% endblock %}
+    </header>
+
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+</body>
