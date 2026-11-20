@@ -1,0 +1,25 @@
+.crenaux_demande {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.un_crenau_demande {
+    min-width: 0;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.un_crenau_demande input,
+.un_crenau_demande select {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.enregistrer_demande{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

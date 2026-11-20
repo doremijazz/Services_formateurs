@@ -1,21 +1,27 @@
 {% extends "Services/base.html" %}
-<body>
+
 {% block main %}
 
-    <form method="post">
-        {% csrf_token %}
+<form method="post">
+    {% csrf_token %}
 
-        {{ form.as_p }}
-        {{ date_form.management_form }}
+    {{ form.as_p }}
+    {{ date_form.management_form }}
+
+    <div class="crenaux_demande">
         {% for slot in date_form %}
-        <fieldset>
-            <legend>Créneau {{ forloop.counter }}</legend>
+            <fieldset class="un_crenau_demande">
+                <legend>Créneau {{ forloop.counter }}</legend>
 
-            {{ slot.as_p }}
-        </fieldset>
-        </p>
+                {{ slot.as_p }}
+            </fieldset>
         {% endfor %}
-         <button type="submit" class="enregistrer">Enregistrer</button>
-    </form>
+    </div>
+    <div class="enregistrer_demande">
+    <button type="submit" class="enregistrer">
+        Enregistrer
+    </button>
+        </div>
+</form>
+
 {% endblock %}
-</body>

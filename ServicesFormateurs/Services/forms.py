@@ -9,11 +9,23 @@ class RequestForm(ModelForm):
         fields = [
             'type', 'days', 'trainer', 'type_service'
         ]
+        labels = {
+            'type': 'Type de demande',
+            'days': 'Jour de la semaine',
+            'trainer': 'Formateur',
+            'type_service': 'Type de service',
+        }
+
         widgets = {
             'type': forms.Select(choices=ServiceType.choices),
             'days': forms.Select(choices=RequestDays.choices),
             'trainer': forms.Select(),
             'type_service': forms.Select(choices=ServiceType.choices)
+        }
+        help_texts = {
+            'type' : 'Est ce un indisponibilité ou un souhait ?',
+            'days' : 'Selectionner un jour de la semaine ou remplissez les créneaux ci desous',
+            'trainer' : 'Choisisez les intiales (nom et prénom) du formateur qui fait la demande',
         }
 
 class RequestDateForm(ModelForm):
