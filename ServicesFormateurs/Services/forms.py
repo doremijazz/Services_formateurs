@@ -76,10 +76,10 @@ class TrainerForm(ModelForm):
 
             'start_date': forms.DateInput(
                 attrs={'type': 'date'},
-                format='%Y-%m-%d'
+                format='%d-%m-%Y'
             ),
         }
-
+        
     def clean_initials(self):
         initials = self.cleaned_data['initials']
         return initials.upper()
