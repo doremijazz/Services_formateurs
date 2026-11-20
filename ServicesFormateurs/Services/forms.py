@@ -1,6 +1,6 @@
 from django.forms import ModelForm, formset_factory
 
-from Services.models import Request, ServiceType, RequestDays, RequestDate
+from Services.models import Request, ServiceType, RequestDays, RequestDate, Trainer
 from django import forms
 
 class RequestForm(ModelForm):
@@ -41,3 +41,45 @@ RequestDateFormSet = formset_factory(
     extra=6
 )
 
+class TrainerForm(ModelForm):
+    class Meta:
+        model = Trainer
+
+        fields = [
+            'initials',
+            'first_name',
+            'last_name',
+            'start_date'
+        ]
+
+        labels = {
+            'initials': 'Initiales du formateur (nom et prénom)',
+            'first_name': 'Prénom',
+            'last_name': 'Nom de famille',
+            'start_date': 'Date de la prise de poste',
+        }
+
+        widgets = {
+            'initials': forms.TextInput(attrs={
+                'style': 'text-transform: uppercase;',
+                'maxlength': '5',
+                'placeholder': 'Ex : BA pour BINET Anaïs'
+            }),
+
+            'first_name': forms.TextInput(attrs={
+                'placeholder': 'Ex : Anaïs'
+            }),
+
+            'last_name': forms.TextInput(attrs={
+                'placeholder': 'Ex : BINET'
+            }),
+
+            'start_date': forms.DateInput(
+                attrs={'type': 'date'},
+                format='%Y-%m-%d'
+            ),
+        }
+
+    def clean_initials(self):
+        initials = self.cleaned_data['initials']
+        return initials.upper()
