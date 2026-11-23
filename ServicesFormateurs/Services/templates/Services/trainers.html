@@ -1,0 +1,51 @@
+{% extends "Services/base.html" %}
+
+{% block main %}
+
+<h1>Liste des formateurs</h1>
+
+<a href="{% url 'Services:trainer_add' %}">
+    Ajouter un formateur
+</a>
+<table class="table_formateurs">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Initiales</th>
+        <th>Prénom</th>
+        <th>Nom</th>
+        <th>Date de prise de poste</th>
+        <th>Nom d'utilisateur</th>
+        <th>Email</th>
+    </tr>
+</thead>
+
+<tbody>
+    {% for trainer in trainers %}
+        <tr class="ligne_formateur"
+            data-url="{% url 'Services:trainer_edit' trainer.pk %}"
+            onclick="window.location.href=this.dataset.url">
+
+            <td>{{ trainer.id }}</td>
+            <td>{{ trainer.initials }}</td>
+            <td>{{ trainer.first_name }}</td>
+            <td>{{ trainer.last_name }}</td>
+            <td>{{ trainer.start_date|date:"d/m/Y" }}</td>
+
+            {% if trainer.user %}
+                <td>{{ trainer.user.username }}</td>
+                <td>{{ trainer.user.email|default:"Non renseigné" }}</td>
+            {% else %}
+                <td>Aucun compte</td>
+                <td>—</td>
+            {% endif %}
+        </tr>
+    {% empty %}
+        <tr>
+            <td colspan="7">Aucun formateur enregistré.</td>
+        </tr>
+    {% endfor %}
+</tbody>
+    </table>
+
+{% endblock %}

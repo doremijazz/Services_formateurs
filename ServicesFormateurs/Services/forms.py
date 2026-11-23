@@ -53,7 +53,7 @@ class TrainerForm(ModelForm):
         ]
 
         labels = {
-            'initials': 'Initiales du formateur (nom et prénom)',
+            'initials': 'Initiales du formateur (prénom et nom)',
             'first_name': 'Prénom',
             'last_name': 'Nom de famille',
             'start_date': 'Date de la prise de poste',
@@ -63,15 +63,15 @@ class TrainerForm(ModelForm):
             'initials': forms.TextInput(attrs={
                 'style': 'text-transform: uppercase;',
                 'maxlength': '5',
-                'placeholder': 'Ex : BA pour BINET Anaïs'
+                'placeholder': 'Ex: AB pour Anaïs BINET'
             }),
 
             'first_name': forms.TextInput(attrs={
-                'placeholder': 'Ex : Anaïs'
+                'placeholder': 'Ex: Anaïs'
             }),
 
             'last_name': forms.TextInput(attrs={
-                'placeholder': 'Ex : BINET'
+                'placeholder': 'Ex: BINET'
             }),
 
             'start_date': forms.DateInput(
@@ -79,7 +79,7 @@ class TrainerForm(ModelForm):
                 format='%d-%m-%Y'
             ),
         }
-        
+
     def clean_initials(self):
         initials = self.cleaned_data['initials']
         return initials.upper()

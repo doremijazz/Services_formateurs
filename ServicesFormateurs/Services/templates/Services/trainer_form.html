@@ -1,0 +1,39 @@
+{% extends "Services/base.html" %}
+
+{% block title %}
+    {% if trainer %}
+        Modifier un formateur
+    {% else %}
+        Ajouter un formateur
+    {% endif %}
+{% endblock %}
+
+{% block main %}
+
+{% if trainer %}
+    <h1>Modifier {{ trainer.first_name }} {{ trainer.last_name }}</h1>
+{% else %}
+    <h1>Ajouter un formateur</h1>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <div class="enregistrer_demande">
+        <button type="submit" class="enregistrer">
+            {% if trainer %}
+                Enregistrer les modifications
+            {% else %}
+                Ajouter le formateur
+            {% endif %}
+        </button>
+    </div>
+</form>
+
+<a href="{% url 'Services:trainers' %}">
+    Retour à la liste des formateurs
+</a>
+
+{% endblock %}

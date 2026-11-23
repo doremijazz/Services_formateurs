@@ -75,3 +75,37 @@ nav a{
 .inscription {
     margin-right: 20px;
 }
+
+.table_formateurs {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table_formateurs th,
+.table_formateurs td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.table_formateurs th {
+    background-color: darkblue;
+    color: white;
+}
+
+.table_formateurs tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table_formateurs tr:hover {
+    background-color: #ddd;
+}
+
+.ligne_formateur {
+    cursor: pointer;
+}
+
+.ligne_formateur:hover {
+    background-color: #dbeafe !important;
+}

@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
-from msilib.schema import ListView
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.generic import ListView, UpdateView
 
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import render, redirect
@@ -43,7 +45,7 @@ def is_direction(user):
     return user.is_authenticated and user.is_staff
 
 # Afficher tous les formateurs
-@method_decorator(user_passes_test(is_direction), name="dispatch")
+#@method_decorator(user_passes_test(is_direction), name="dispatch")
 class TrainerListView(ListView):
     model = Trainer
     template_name = "Services/trainers.html"
@@ -54,8 +56,8 @@ class TrainerListView(ListView):
 
 
 # Ajouter un formateur (direction uniquement)
-@method_decorator(user_passes_test(is_direction), name="dispatch")
-class TrainerCreateView(UserPassesTestMixin, View):
+#@method_decorator(user_passes_test(is_direction), name="dispatch")
+class TrainerCreateView(View):
     template_name = "Services/trainer_form.html"
 
     def get(self, request, *args, **kwargs):
@@ -70,3 +72,17 @@ class TrainerCreateView(UserPassesTestMixin, View):
             return redirect("Services:trainers")
 
         return render(request, self.template_name, {"form": form})
+
+#@method_decorator(
+    #user_passes_test(
+        lambda user: user.is_authenticated and user.is_staff,
+        login_url="/Services/connexion/"
+    #),
+    #name="dispatch"
+#)
+class TrainerUpdateView(UpdateView):
+    model = Trainer
+    form_class = TrainerForm
+    template_name = "Services/trainer_form.html"
+    context_object_name = "trainer"
+    success_url = reverse_lazy("Services:trainers")
