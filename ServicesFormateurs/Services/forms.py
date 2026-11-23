@@ -54,7 +54,8 @@ class TrainerForm(ModelForm):
             'initials',
             'first_name',
             'last_name',
-            'start_date'
+            'start_date',
+            "work_quota"
         ]
 
         labels = {
@@ -62,6 +63,7 @@ class TrainerForm(ModelForm):
             'first_name': 'Prénom',
             'last_name': 'Nom de famille',
             'start_date': 'Date de la prise de poste',
+            "work_quota": "Quotité de travail (%)",
         }
 
         widgets = {
@@ -82,6 +84,16 @@ class TrainerForm(ModelForm):
             'start_date': forms.DateInput(
                 attrs={'type': 'date'},
                 format='%d-%m-%Y'
+            ),
+            'work_quota': forms.Select(
+                choices=[
+                    (100, '100 %'),
+                    (90, '90 %'),
+                    (80, '80 %'),
+                    (75, '75 %'),
+                    (60, '60 %'),
+                    (50, '50 %'),
+                ]
             ),
         }
 

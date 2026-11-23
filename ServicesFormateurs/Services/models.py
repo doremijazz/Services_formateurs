@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
 from django.conf import settings
@@ -34,6 +35,14 @@ class RequestType(models.IntegerChoices):
 
 
 class Trainer(models.Model):
+    WORK_QUOTA_CHOICES = [
+        (100, "100 %"),
+        (90, "90 %"),
+        (80, "80 %"),
+        (75, "75 %"),
+        (60, "60 %"),
+        (50, "50 %"),
+    ]
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
@@ -45,6 +54,12 @@ class Trainer(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     start_date = models.DateField(null=True, blank=True)
+
+    work_quota = models.PositiveIntegerField(
+        default=100,
+        verbose_name="Quotité de travail (%)",
+        choices=WORK_QUOTA_CHOICES,
+    )
 
     def id_ir(self, date):
         pass
