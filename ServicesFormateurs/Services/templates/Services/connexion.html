@@ -1,0 +1,55 @@
+{% extends "services/base.html" %}
+
+{% block main %}
+
+<div class="connexion_container">
+
+    <h1>Connexion</h1>
+
+    <form method="post" class="connexion_form">
+        {% csrf_token %}
+
+        {% if erreur %}
+            <p class="connexion_erreur">{{ erreur }}</p>
+        {% endif %}
+
+        <div class="connexion_champ">
+            <label for="username">Identifiant</label>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Votre identifiant"
+                autocomplete="username"
+                required
+            >
+        </div>
+
+        <div class="connexion_champ">
+            <label for="password">Mot de passe</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Votre mot de passe"
+                autocomplete="current-password"
+                required
+            >
+        </div>
+
+        <button type="submit" class="connexion_bouton">
+            Se connecter
+        </button>
+
+    </form>
+
+    <p class="connexion_inscription">
+        Pas encore de compte ?
+        <a href="{% url 'Services:inscription' %}">
+            S'inscrire
+        </a>
+    </p>
+
+</div>
+
+{% endblock %}

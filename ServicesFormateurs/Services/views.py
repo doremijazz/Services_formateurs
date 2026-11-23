@@ -1,3 +1,4 @@
+from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
@@ -8,7 +9,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import render, redirect
 from django.views import View
 
-from Services.forms import RequestForm, RequestDateForm, RequestDateFormSet, TrainerForm
+from Services.forms import RequestForm, RequestDateForm, RequestDateFormSet, TrainerForm, InscriptionForm
 from Services.models import Request, Trainer
 
 
@@ -86,3 +87,54 @@ class TrainerUpdateView(UpdateView):
     template_name = "Services/trainer_form.html"
     context_object_name = "trainer"
     success_url = reverse_lazy("Services:trainers")
+
+class InscriptionView(View):
+    template_name = "Services/inscription.html"
+
+    def get(self, request, *args, **kwargs):
+        form = InscriptionForm()
+
+        return render(
+            request,
+            self.template_name,
+            {"form": form}
+        )
+
+    def post(self, request, *args, **kwargs):
+        form = InscriptionForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect("Services:connexion")
+
+        return render(
+            request,
+            self.template_name,
+            {"form": form}
+        )
+
+def connexion(request):
+    """Affiche le formulaire de connexion et authentifie un utilisateur.
+
+    En cas de succès, ouvre la session et redirige vers l’accueil.
+    """
+    erreur = None
+    if request.method == "POST":
+        username = request.POST.get("username", "")
+        password = request.POST.get("password", "")
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect("Services:index")
+        erreur = "Identifiants incorrects."
+    return render(request, "Services/connexion.html", {"erreur": erreur})
+
+
+def deconnexion(request):
+    """Ferme la session de l’utilisateur courant.
+
+    Redirige ensuite vers la page d’accueil.
+    """
+    logout(request)
+    return redirect("services:index")

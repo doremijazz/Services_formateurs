@@ -1,4 +1,9 @@
+from django.contrib.auth.forms import UserCreationForm
+from django.db import transaction
 from django.forms import ModelForm, formset_factory
+from django.contrib.auth.models import User
+import os
+import secrets
 
 from Services.models import Request, ServiceType, RequestDays, RequestDate, Trainer
 from django import forms
@@ -83,3 +88,73 @@ class TrainerForm(ModelForm):
     def clean_initials(self):
         initials = self.cleaned_data['initials']
         return initials.upper()
+
+class InscriptionForm(UserCreationForm):
+    """Formulaire de création d'un compte utilisateur."""
+
+    direction_password = forms.CharField(
+        label="Mot de passe direction (facultatif)",
+        required=False,
+        widget=forms.PasswordInput(attrs={
+            "placeholder": "Réservé à la direction",
+            "autocomplete": "off"
+        })
+    )
+
+    class Meta:
+        model = User
+        fields = [
+            "username",
+            "email",
+            "first_name",
+            "last_name"
+        ]
+
+    def clean_direction_password(self):
+        password = self.cleaned_data.get("direction_password")
+
+        if password:
+            expected = os.environ.get("DIRECTION_PASSWORD")
+
+            if not expected or not secrets.compare_digest(
+                password, expected
+            ):
+                raise forms.ValidationError(
+                    "Mot de passe direction incorrect."
+                )
+
+        return password
+
+    @transaction.atomic
+    def save(self, commit=True):
+        user = super().save(commit=False)
+
+        # Vérifier le mot de passe direction
+        user.is_staff = bool(
+            self.cleaned_data.get("direction_password")
+        )
+
+        if not commit:
+            return user
+
+        # Rechercher un formateur existant
+        trainers = Trainer.objects.filter(
+            first_name__iexact=user.first_name.strip(),
+            last_name__iexact=user.last_name.strip()
+        )
+
+        # Un seul formateur correspondant, sans compte associé
+        if trainers.count() == 1:
+            trainer = trainers.first()
+
+            if trainer.user_id is None:
+                user.save()
+
+                trainer.user = user
+                trainer.save(update_fields=["user"])
+
+                return user
+
+        # Sinon, créer uniquement le compte utilisateur
+        user.save()
+        return user

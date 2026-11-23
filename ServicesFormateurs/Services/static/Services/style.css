@@ -31,25 +31,38 @@ nav{
     gap: 10px;
     padding: 10px;
 }
-.en_tete{
+.en_tete {
     height: 30px;
-    align-items: center;
-    justify-content: center;
     display: flex;
+    align-items: center;
+    justify-content: flex-start;
     gap: 10px;
     padding: 10px;
 }
-.en_tete a{
+
+.en_tete a {
     text-decoration: none;
     color: white;
     background: black;
-    gap: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 5px;
-    padding-top: 5px;
+    padding: 5px 10px;
     border-radius: 10px;
     height: 20px;
+}
+
+
+
+/* Supprimer les anciennes marges */
+.en_tete .profil,
+.en_tete .connexion,
+.en_tete .deconnexion,
+.en_tete .inscription {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Pousser le premier lien visible vers la droite */
+.en_tete > a:first-of-type {
+    margin-left: auto;
 }
 
 nav a{
@@ -62,18 +75,6 @@ nav a{
     padding-top: 5px;
     border-radius: 10px;
     border: 1px solid white;
-}
-
-/* Premier lien à droite */
-.profil,
-.connexion {
-    margin-left: auto;
-}
-
-/* Dernier lien à droite */
-.deconnexion,
-.inscription {
-    margin-right: 20px;
 }
 
 .table_formateurs {
@@ -108,4 +109,169 @@ nav a{
 
 .ligne_formateur:hover {
     background-color: #dbeafe !important;
+}
+
+/* Formulaire d'inscription */
+main form:has(.champ_formulaire) {
+    max-width: 550px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+/* Chaque champ */
+.champ_formulaire {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 18px;
+}
+
+/* Étiquettes */
+.champ_formulaire label {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Champs de saisie */
+.champ_formulaire input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+/* Champ sélectionné */
+.champ_formulaire input:focus {
+    outline: none;
+    border-color: darkblue;
+}
+
+/* Textes d'aide */
+.champ_formulaire small {
+    font-size: 12px;
+    color: #666;
+}
+
+/* Messages d'erreur */
+.champ_formulaire .erreur,
+.champ_formulaire .errorlist {
+    color: #b00020;
+    font-size: 13px;
+    margin: 4px 0;
+}
+
+/* Zone du bouton */
+.enregistrer_demande {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+/* Bouton d'inscription */
+.enregistrer_demande .enregistrer {
+    background-color: darkblue;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Adaptation petits écrans */
+@media (max-width: 600px) {
+    main form:has(.champ_formulaire) {
+        margin: 15px;
+        padding: 20px;
+    }
+}
+
+/* Conteneur de connexion */
+.connexion_container {
+    width: min(100% - 40px, 520px);
+    margin: 35px auto;
+}
+
+.connexion_container h1 {
+    text-align: center;
+    color: darkblue;
+    margin-bottom: 25px;
+}
+
+/* Formulaire */
+.connexion_form {
+    background: white;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Champs */
+.connexion_champ {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 18px;
+}
+
+.connexion_champ label {
+    font-weight: bold;
+    color: #333;
+}
+
+.connexion_champ input {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+.connexion_champ input:focus {
+    outline: none;
+    border-color: darkblue;
+}
+
+/* Bouton */
+.connexion_bouton {
+    width: 100%;
+    padding: 13px;
+    background: darkblue;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.connexion_bouton:hover {
+    background: #253fa0;
+}
+
+/* Erreurs */
+.connexion_erreur {
+    color: #b00020;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Lien inscription */
+.connexion_inscription {
+    text-align: center;
+    margin-top: 20px;
+}
+
+@media (max-width: 480px) {
+    .connexion_form {
+        padding: 18px;
+    }
 }

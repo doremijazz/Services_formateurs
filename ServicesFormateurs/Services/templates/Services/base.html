@@ -11,24 +11,24 @@
     <header>
         {% block header %}
         <div class="en_tete">
-            <h3>ServicesFormateurs</h3>
+            <h3 class="titre">ServicesFormateurs</h3>
             {% if user.is_authenticated %}
                 <a class="profil">Profil</a>
                 <a class="deconnexion">Deconnexion</a>
             {% else %}
                 {% if request.resolver_match.url_name != "connexion" %}
-                    <a class="connexion">Connexion</a>
+                    <a class="connexion" href="{% url 'Services:connexion' %}">Connexion</a>
                 {% endif %}
                 {% if request.resolver_match.url_name != "inscription" %}
-                <a class="inscription">Inscription</a>
+                <a class="inscription" href="{% url 'Services:inscription' %}">Inscription</a>
                 {% endif %}
             {% endif %}
         </div>
         <nav>
             <a>Acceuil</a>
-            <a>Demandes</a>
+            <a href="{% url 'Services:do_request' %}">Demandes</a>
             <a>Planning</a>
-            <a>Formateurs</a>
+            <a href="{% url 'Services:trainers' %}">Formateurs</a>
             <a>Services</a>
 
 
